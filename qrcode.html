@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRコード生成</title>
+    <!-- CDNからQRCode.jsを読み込む -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <h1>QRコード生成</h1>
+
+    <!-- シンプルなQRコードを表示するdiv -->
+    <div id="qrcode"></div>
+
+    <!-- カスタマイズ可能なQRコードを表示するdiv -->
+    <div id="customQRCode"></div>
+
+    <script type="text/javascript">
+        // QRコードに使用するURLを変数で定義
+        var url = "http://192.168.3.32:5500";  // ここに必要なURLを設定
+
+        // シンプルなQRコード生成（デフォルト設定）
+        new QRCode(document.getElementById("qrcode"), url);
+
+        // カスタマイズ可能なQRコード生成（サイズ、色、エラーレベルを設定）
+        var customQRCode = new QRCode(document.getElementById("customQRCode"), {
+            text: url,  // 変数urlを使う
+            width: 128,
+            height: 128,
+            colorDark : "#000000",   // QRコードの色
+            colorLight : "#ffffff",  // 背景色
+            correctLevel : QRCode.CorrectLevel.H // エラー訂正レベル
+        });
+
+        // ここから、QRコードを動的に操作する例
+
+        // 例：QRコードをクリア
+        // customQRCode.clear();
+
+        // 例：新しいQRコードを作成
+        // customQRCode.makeCode("http://naver.com");
+
+    </script>
+</body>
+</html>

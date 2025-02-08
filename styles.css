@@ -1,0 +1,576 @@
+
+header {
+  background-color: #1e0202;
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  unicode-bidi: isolate;
+  width: 100%;
+  margin-left: -10px;
+  margin-right: 10px;
+}
+.menu-toggle {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  margin-top: 5px;
+  border-radius: 15px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  gap: 15px;
+}
+
+.bell-icon {
+  font-size: 35px;
+  cursor: pointer;
+  border-radius: 50px;
+  border-bottom: solid;
+  display: inline-block;
+  margin: 20px;
+  margin-right: 200px;
+}
+.shake {
+  animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+.options-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100px;
+  border-radius: 15px;
+  margin-top: 30px;
+  margin-right: 30px;
+}
+
+.option-item {
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  color: black;
+
+}
+
+.option-item:hover {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+}
+
+/* Adjusted Mobile Menu Styles */
+#mobile-menu {
+  position: fixed;
+  text-align: left;
+  height: auto; /* Adjust height to accommodate dynamic content */
+  margin-top: 60%; /* Center vertically */
+  left: 0; /* Align to the left */
+  transform: translateY(-50%); /* Vertically center */
+  padding: 10px 0; /* Inner padding */
+  background-color: #384a5c; /* Background color */
+  color: #fff; /* Text color */
+  font-size: 15px; /* Font size */
+  border: none; /* Remove border */
+  border-radius: 0 8px 8px 0; /* Rounded right corners */
+  cursor: pointer; /* Pointer cursor */
+  overflow-y: auto; /* Allow vertical scrolling for overflow */
+  z-index: 1000; /* Ensure it is above other elements */
+  transition: background-color 0.3s, transform 0.2s; /* Hover animation */
+}
+.menu-item {
+  height: 30px; /* Adjust for better fit */
+  width: 100px; /* Adjust for better fit */
+  margin-top: 10px;
+  margin-left: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: left;
+  background-color: #9286c8;
+  border: 1px solid;
+  border-radius: 7px;
+}
+.menu-item:hover {
+  background-color: #1a7e8d; /* Hover background color */
+  transform: translateY(-5%) scale(1.1); /* Hover scale effect */
+}
+/* サイドメニューの基本スタイル */
+#side-menu {
+  position: fixed;
+  top: 90px;
+  right: -350px; /* 初期状態は非表示 */
+  width: 80%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.525);
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 1000;
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 5px;
+}
+
+#side-menu-content {
+  padding: 10px;
+  margin-top: 30px;
+  border-radius: 15px;
+}
+
+.menu-card {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #151414;
+  border-radius: 15px;
+  width: 300px;
+  height: 100px;
+  display: flex;
+  margin-top: 5px;
+  padding: 0px;
+}
+
+.menu-card img {
+  width: 100px;
+  height: 90px;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+.menu-card button {
+  margin-right: 5px;
+}
+
+.item-name{
+  margin-top: 10px;
+  padding: 0px;
+  width: 130;
+  cursor: pointer;
+  font-size: 10px;
+  text-align: center;
+  align-items: center;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif; 
+}
+.item-price{
+  margin-top: 30px;
+  padding: 0px;
+  cursor: pointer;
+  font-size: 15px;
+  text-align: center;
+  align-items: center;
+  padding: 0px;
+  font-family: 'Roboto', sans-serif; 
+}
+
+.add-btn {
+  padding: 5px 5px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  width: 40px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 22px;
+}
+
+.close-btn {
+  position: absolute;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0px;
+}
+.close-btn:hover{
+  border-radius: 50%;
+}
+.hidden-box {
+  margin-top: 500px;
+  margin-bottom: 70px;
+  display: none;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.hidden-box.active {
+  display: block;
+  margin-top: 500px;
+}
+h1{
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  text-decoration:underline;
+  font-size: 1.5rem;
+}
+.confirm-button {
+  display: inline-block;
+  width: 35%;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+  background-color: #15d746;
+  margin-left: 210px;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #000;
+  color: #fff;
+}
+
+.total-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.order-popup {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: 300px;
+  display: none; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* Quantity入力フィールド全体に適用するスタイル */
+.quantity-controls input[type="text"] {
+  width: 20px; /* 幅を固定 */
+  height: 15px; /* 高さを固定 */
+  text-align: center; /* 左揃え */
+  border: 1px solid #ccc; /* 枠線を追加 */
+  border-radius: 2px; /* 角を丸める */
+  padding: 2px; /* 内側余白を追加 */
+  font-size: 12px; /* フォントサイズを調整 */
+}
+
+/* Quantityボタンのスタイル */
+.quantity-controls button {
+  width: 20px; /* ボタンの幅 */
+  height: 20px; /* ボタンの高さ */
+  font-size: 12px; /* ボタン内のテキストサイズ */
+  text-align: center;
+  border: 1px solid #ccc; /* 枠線 */
+  color: #fff;
+  background-color: #0a0101; /* 背景色 */
+  cursor: pointer; /* ポインタを表示 */
+  border-radius: 4px; /* 少し丸みをつける */
+}
+
+.quantity-controls button:hover {
+  background-color: #e0e0e0; /* ホバー時の背景色 */
+  color: black;
+}
+.quantity-control {
+  margin-top: 10px;
+  font-size: 12px; /* ボタン内のテキストサイズ */
+  cursor: pointer; /* ポインタを表示 */
+  border-radius: 4px; /* 少し丸みをつける */
+}
+/* increase decrease btn  */
+ input {
+  width: 15px; /* 幅を固定 */
+  height: 15px; /* 高さを固定 */
+  text-align: center; /* 左揃え */
+  border: 1px solid #ccc; /* 枠線を追加 */
+  border-radius: 2px; /* 角を丸める */
+  font-size: 12px; /* フォントサイズを調整 */
+  margin-right: 5px;
+}
+/* 数量ボタンのコンテナ */
+.quantity-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+td {
+  text-align: center;
+  padding: 0px;
+}
+/* +, - ボタン */
+.decrease-button, .increase-button {
+  width: 20px; /* 少し大きくする */
+  height: 20px; /* 少し大きくする */
+  font-size: 12px; /* ボタン内のテキストサイズ */
+  text-align: center;
+  border: 1px solid #ccc;
+  color: #fff;
+  background-color: #0a0101;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0px;
+}
+
+/* ホバー時の色変更 */
+.increase-button:hover {
+  background-color: #0c981d;
+}
+.decrease-button:hover {
+  background-color: #fa2424;
+}
+
+/* 入力欄のスタイル */
+.quantity-input {
+  width: 15px; /* 幅を固定 */
+  height: 15px; /* 高さを固定 */
+  text-align: center; /* 左揃え */
+  border: 1px solid #ccc; /* 枠線を追加 */
+  border-radius: 2px; /* 角を丸める */
+  font-size: 12px; /* フォントサイズを調整 */
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.delete-button {
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+/* Quantityボタンのスタイル */
+.increase-btn,.decrease-btn{
+  width: 20px; /* ボタンの幅 */
+  height: 20px; /* ボタンの高さ */
+  font-size: 12px; /* ボタン内のテキストサイズ */
+  text-align: center;
+  border: 1px solid #ccc; /* 枠線 */
+  color: #fff;
+  background-color: #0a0101; /* 背景色 */
+  cursor: pointer; /* ポインタを表示 */
+  border-radius: 4px; /* 少し丸みをつける */
+  padding: 0px;
+}
+
+.increase-btn:hover {
+  background-color: #0c981d; /* ホバー時の背景色 */
+  color: #fff;
+}
+.decrease-btn:hover {
+  background-color: #fa2424; /* ホバー時の背景色 */
+  color: #fff;  
+}
+.checkorder {
+  position: fixed; /* 固定位置に配置 */
+  top: 4%; /* 上から75%の位置 */
+  right: 0; /* 左側に配置 */
+  transform: translateY(-50%); /* 垂直方向のセンタリング */
+  padding: 10px 20px; /* ボタンの内側余白 */
+  background-color: #007BFF; /* ボタンの背景色 */
+  color: #fff; /* ボタンの文字色 */
+  font-size: 16px; /* フォントサイズ */
+  border: none; /* ボーダーを削除 */
+  border-radius: 8px 0px 0px 8px; /* 右側を丸くする */
+  cursor: pointer; /* カーソルをポインタに変更 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  z-index: 1000; /* 他の要素より上に表示 */
+  transition: background-color 0.3s, transform 0.2s; /* ホバー時のアニメーション */
+}
+
+.checkorder:hover {
+  background-color: #0056b3; /* ホバー時の背景色変更 */
+  transform: translateY(-50%) scale(1.1); /* ホバー時にサイズを拡大 */
+}
+.checkhistory{
+  position: fixed; /* 固定位置に配置 */
+  top: 12%; /* 上から75%の位置 */
+  right: 0; /* 左側に配置 */
+  transform: translateY(-50%); /* 垂直方向のセンタリング */
+  padding: 10px 20px; /* ボタンの内側余白 */
+  background-color: #007BFF; /* ボタンの背景色 */
+  color: #fff; /* ボタンの文字色 */
+  font-size: 16px; /* フォントサイズ */
+  border: none; /* ボーダーを削除 */
+  border-radius: 8px 0px 0px 8px; /* 右側を丸くする */
+  cursor: pointer; /* カーソルをポインタに変更 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 影を追加 */
+  z-index: 1000; /* 他の要素より上に表示 */
+  transition: background-color 0.3s, transform 0.2s; /* ホバー時のアニメーション */
+}
+.checkhistory:hover {
+  background-color: #0056b3; /* ホバー時の背景色変更 */
+  transform: translateY(-50%) scale(1.1); /* ホバー時にサイズを拡大 */
+}
+.order-history, .order-confirmation {
+  position: fixed;
+  top: 20%;
+  right: -100%;
+  width: 85%;
+  max-width: 600px;
+  height: 60%;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+  border-radius: 15px;
+  border: 1px solid #151414;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+}
+
+.order-history .close-button, .order-confirmation .close-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 18px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0px;
+}
+
+.order-history .close-button:hover, .order-confirmation .close-button:hover {
+  background-color: #d9534f;
+}
+
+.order-history h2, .order-confirmation h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.order-history table, .order-confirmation table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.order-history th, .order-confirmation th, .order-history td, .order-confirmation td {
+  border: 1px solid #000;
+  padding: 8px;
+  text-align: center;
+}
+
+.order-history th, .order-confirmation th {
+  background-color: #000;
+  color: #fff;
+}
+
+.order-history .total, .order-confirmation .total-container {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.checkout-button, .confirm-button {
+  display: block;
+  width: 30%;
+  padding: 10px;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.checkout-button:hover, .confirm-button:hover {
+  background-color: #0056b3;
+}
+
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  text-decoration: underline;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  margin-left: -8px;
+  margin-right: 0px;
+  display: block;
+  unicode-bidi: isolate;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+  header {
+    height: 60px;
+  }
+
+  .menu-toggle {
+    font-size: 25px;
+  }
+
+  .bell-icon {
+    font-size: 20px;
+  }
+
+  #mobile-menu {
+    width: 35%;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    height: 50px;
+  }
+
+  .menu-toggle {
+    font-size: 20px;
+  }
+
+  .bell-icon {
+    font-size: 18px;
+  }
+
+  .menu-card {
+    width: 100%;
+  }
+}

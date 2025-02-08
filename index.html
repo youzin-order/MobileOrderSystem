@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOUZIN</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <!-- ハンバーガーメニュー -->
+    <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+
+    <!-- ベルアイコンで店員呼出 -->
+     <div>
+      <div id="bell-icon" class="bell-icon" onclick="toggleOptions()">🔔</div>
+    </div>
+    
+    <!-- 店員呼出オプション -->
+    <div id="options-menu" class="options-menu">
+      <div class="option-item" onclick="selectOption('店員呼出')">店員呼出</div>
+      <div class="option-item" onclick="selectOption('皿下げ依頼')">皿下げ依頼</div>
+      <div class="option-item" onclick="selectOption('その他')">その他</div>
+    </div>
+  </header>
+  <!-- モバイルメニュー -->
+  <div id="mobile-menu" class="mobile-menu">
+    <div class="menu-item" id="snacks-tab">おつまみ</div>
+    <div class="menu-item" id="beer-tab">ビール</div>
+    <div class="menu-item" id="rice-tab">ごはん</div>
+    <div class="menu-item" id="grilled-tab">焼き鳥</div>
+    <div class="menu-item" id="salads-tab">サラダ</div>
+  </div>
+  <div class="tabs">
+    <div class="checkhistory" id="order-history-tab" onclick="toggleOrderHistory()">注文履歴</div>
+    <div class="checkorder" id="order-confirmation-tab" onclick="toggleOrderConfirmation()">注文確認</div> 
+  </div>
+  <!-- 注文確認・注文履歴サイドメニュー -->
+  <div id="side-menu" class="side-menu">
+    <button class="close-btn" onclick="closeSideMenu()">×</button>
+    <div id="side-menu-content"></div>
+  </div>
+  <div class="order-history" id="order-history">
+    <button class="close-button" onclick="toggleOrderHistory()">×</button>
+    <h2>注文履歴</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>商品一覧</th>
+          <th>価格</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thead>
+      <tbody id="order-history-body">
+        <!-- 確定された注文がここに追加されます -->
+      </tbody>
+    </table>
+    <div class="total">
+      <strong>合計:</strong> <span id="order-history-total">¥0</span>
+    </div>
+    <div class="button-container">
+      <button class="checkout-button" onclick="proceedToCheckout()">会計に進む</button>
+    </div>
+  </div>
+  
+  <div id="confirmation-container" class="order-confirmation">
+    <button class="close-button" onclick="toggleOrderConfirmation()">×</button>
+  </div>
+  
+  <footer>
+    <p>Copyright © 2025 Youzin</p>
+  </footer>
+  <!-- JavaScript -->
+  <script src="menuData.js"></script>
+  <script src="script.js"></script>
+  <script src="orderhistory.js"></script>
+  <script src="sousa.js"></script>
+</body>
+</html>
