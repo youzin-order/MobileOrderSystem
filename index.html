@@ -24,7 +24,6 @@
     <div id="options-menu" class="options-menu">
       <div class="option-item" onclick="selectOption('店員呼出')">店員呼出</div>
       <div class="option-item" onclick="selectOption('皿下げ依頼')">皿下げ依頼</div>
-      <div class="option-item" onclick="selectOption('その他')">その他</div>
     </div>
   </header>
   <!-- モバイルメニュー -->
@@ -37,8 +36,8 @@
   </div>
   <div class="tabs">
     <div class="checkhistory" id="order-history-tab" onclick="toggleOrderHistory()">注文履歴</div>
-    <div class="checkorder" id="order-confirmation-tab" onclick="toggleOrderConfirmation()">注文確認</div> 
-  </div>
+    <div class="checkorder" id="order-confirmation-tab" onclick="toggleOrderConfirmation()">注文確認<span id="cart-count" class="cart-count" style="display: none;">0</span></div> 
+</div>
   <!-- 注文確認・注文履歴サイドメニュー -->
   <div id="side-menu" class="side-menu">
     <button class="close-btn" onclick="closeSideMenu()">×</button>

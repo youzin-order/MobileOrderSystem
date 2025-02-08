@@ -1,5 +1,3 @@
-window.currentOrder = [];
-
 window.toggleOrderHistory = function() {
     const orderHistory = document.getElementById('order-history');
     const confirmationContainer = document.getElementById('confirmation-container');
@@ -14,49 +12,6 @@ window.toggleOrderHistory = function() {
     }
 };
 
-
-window.toggleOrderConfirmation = function() {
-    const confirmationContainer = document.getElementById('confirmation-container');
-    const orderHistory = document.getElementById('order-history');
-    const sideMenu = document.getElementById('side-menu');
-
-    if (confirmationContainer.style.right === "0px") {
-        confirmationContainer.style.right = "-100%";
-    } else {
-        confirmationContainer.style.right = "0";
-        orderHistory.style.right = "-100%"; // 注文履歴を非表示
-        sideMenu.style.right = "-100%"; // サイドメニューも確実に閉じる
-    }
-};
-// 追加ボタンをクリックしたときに注文にアイテムを追加
-window.addToOrder = function(name, price, id) {
-    const quantityInput = document.getElementById(`quantity-${id}`);
-    const quantity = parseInt(quantityInput.value) || 1;
-
-    // `window.currentOrder` が未定義なら初期化
-    if (!window.currentOrder) {
-        window.currentOrder = [];
-    }
-
-    // 既存の注文リストに商品があるか確認
-    const existingItemIndex = window.currentOrder.findIndex((item) => item.id === id);
-    if (existingItemIndex === -1) {
-        // 商品がリストになければ追加
-        window.currentOrder.push({ name, price, id, quantity });
-    } else {
-        // すでにある商品なら数量を加算
-        window.currentOrder[existingItemIndex].quantity += quantity;
-    }
-
-    // 注文確認画面を更新して表示
-    showOrderConfirmation();
-};
-
-// アイテムを注文から削除する
-window.removeItem = function(itemId) {
-window.currentOrder = window.currentOrder.filter(item => item.id !== itemId);
-showOrderConfirmation();
-}
 window.closeSideMenu = function() {
 const sideMenu = document.getElementById('side-menu');
 sideMenu.style.right = "-100%"; // 確実に閉じる
@@ -66,38 +21,43 @@ function toggleMenu() {
     const mobileMenu = document.getElementById("mobile-menu");
     mobileMenu.style.display = mobileMenu.style.display === "block" ? "none" : "block";
 }
-function toggleOptions() {
-const optionsMenu = document.getElementById("options-menu");
-optionsMenu.style.display = optionsMenu.style.display === "block" ? "none" : "block";
-}
-// 数量を増やす
-function increaseQuantity(id) {
-    const itemIndex = window.currentOrder.findIndex(item => item.id === id);
-    if (itemIndex !== -1) {
-        window.currentOrder[itemIndex].quantity += 1; // 数量を増やす
-        updateQuantityUI(id); // UI更新
-        updateOrderConfirmation(); // 注文確認画面の更新
+window.toggleOptions = function () {
+    const optionsMenu = document.getElementById("options-menu");
+    const confirmationContainer = document.getElementById("confirmation-container");
+    const orderHistory = document.getElementById("order-history");
+    const sideMenu = document.getElementById("side-menu");
+
+    console.log("toggleOptions 実行");
+
+    if (optionsMenu.style.display === "block") {
+        optionsMenu.style.display = "none";
+        document.removeEventListener("click", closeOptionsOnOutsideClick);
+    } else {
+        optionsMenu.style.display = "block";
+
+        // 他のメニューをすべて閉じる
+        if (confirmationContainer) confirmationContainer.style.right = "-100%";
+        if (orderHistory) orderHistory.style.right = "-100%";
+        if (sideMenu) sideMenu.style.right = "-100%";
+
+        // 外部クリックを検知するイベントを追加
+        setTimeout(() => {
+            document.addEventListener("click", closeOptionsOnOutsideClick);
+        }, 10);
+    }
+};
+
+// メニュー外をクリックしたら閉じる処理
+function closeOptionsOnOutsideClick(event) {
+    const optionsMenu = document.getElementById("options-menu");
+
+    if (optionsMenu && optionsMenu.style.display === "block" && !optionsMenu.contains(event.target)) {
+        optionsMenu.style.display = "none";
+        document.removeEventListener("click", closeOptionsOnOutsideClick);
     }
 }
 
-// 数量を減らす
-function decreaseQuantity(id) {
-    const itemIndex = window.currentOrder.findIndex(item => item.id === id);
-    if (itemIndex !== -1 && window.currentOrder[itemIndex].quantity > 1) {
-        window.currentOrder[itemIndex].quantity -= 1; // 数量を減らす
-        updateQuantityUI(id); // UI更新
-        updateOrderConfirmation(); // 注文確認画面の更新
-    }
-}
 
-// UI の数量を更新する関数
-function updateQuantityUI(id) {
-    const quantityInput = document.getElementById(`quantity-${id}`);
-    if (quantityInput) {
-        const item = window.currentOrder.find(item => item.id === id);
-        quantityInput.value = item ? item.quantity : 1;
-    }
-}
 
 // 注文を確定する
 function confirmOrder() {
@@ -212,13 +172,27 @@ function updateOrderHistory() {
         updateTotal();
     });
   });
-  // 会計に進む処理
-  function proceedToCheckout() {
+// 会計に進む処理
+function proceedToCheckout() {
     const rows = document.querySelectorAll('#order-history-body tr');
     rows.forEach(row => {
-      row.style.backgroundColor = '#d3d3d3';
-      row.style.color = '#808080';
+        row.style.backgroundColor = '#d3d3d3';
+        row.style.color = '#808080';
     });
     alert('会計に進みます。');
-  }
-  
+}
+// サイドメニュ数量を増やす関数
+function increaseQuantity(itemId) {
+    const quantityInput = document.getElementById(`quantity-${itemId}`);
+    let quantity = parseInt(quantityInput.value);
+    quantityInput.value = quantity + 1;
+}
+
+// サイドメニュ数量を減らす関数
+function decreaseQuantity(itemId) {
+    const quantityInput = document.getElementById(`quantity-${itemId}`);
+    let quantity = parseInt(quantityInput.value);
+    if (quantity > 1) {
+        quantityInput.value = quantity - 1;
+    }
+}
