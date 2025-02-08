@@ -254,6 +254,27 @@ header {
   }
 }
 
+.order-notification {
+  position: fixed;
+  top: 20px;
+  left: 40%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  color: rgb(255, 4, 0);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.7rem;
+  text-align: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+/* Show the notification */
+.order-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
 
 .close-btn {
   position: fixed;
@@ -541,6 +562,7 @@ td {
   cursor: pointer;
   text-align: center;
   padding: 0px;
+  
 }
 
 .order-history .close-button:hover, .order-confirmation .close-button:hover {

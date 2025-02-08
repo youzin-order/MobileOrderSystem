@@ -58,9 +58,10 @@ function closeOptionsOnOutsideClick(event) {
 }
 
 
-
 // 注文を確定する
 function confirmOrder() {
+    const confirmationContainer = document.getElementById("confirmation-container");
+
     if (window.currentOrder.length > 0) {
         // 確定した注文を履歴に追加
         confirmedOrders = [...confirmedOrders, ...window.currentOrder];
@@ -74,12 +75,49 @@ function confirmOrder() {
         // 注文確認画面をクリア
         updateOrderConfirmation();
 
-        alert('注文が確定されました！');
+        // 注文確定の通知を表示
+        showOrderNotification("注文が確定されました！", "success");
+
+        // 注文確認画面を自動的に閉じる
+        if (confirmationContainer) {
+            confirmationContainer.style.right = "-100%"; // 画面をスライドアウト
+        }
     } else {
-        alert('注文がありません。');
+        showOrderNotification("注文がありません。", "error");
+    }
+}
+function toggleConfirmationContainer() {
+    const confirmationContainer = document.getElementById("confirmation-container");
+    if (confirmationContainer.classList.contains("open")) {
+        confirmationContainer.classList.remove("open");
+        confirmationContainer.style.right = "-100%";
+    } else {
+        confirmationContainer.classList.add("open");
     }
 }
 
+// 注文通知を表示する関数（メッセージとタイプを指定）
+function showOrderNotification(message, type) {
+    let notification = document.getElementById("order-notification");
+
+    // 既に作成されていなければ作成
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.id = "order-notification";
+        notification.className = "order-notification";
+        document.body.appendChild(notification);
+    }
+
+    // メッセージを設定
+    notification.textContent = message;
+    // 表示スタイル適用
+    notification.classList.add("show");
+
+    // 3秒後に非表示
+    setTimeout(() => {
+        notification.classList.remove("show");
+    }, 3000);
+}
 // 注文確認画面を更新する関数
 function updateOrderConfirmation() {
     const confirmationContainer = document.getElementById('confirmation-container');

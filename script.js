@@ -72,30 +72,57 @@ document.addEventListener("DOMContentLoaded", function () {
         closeAllMenus("sideMenu");
     }
 
-    // 商品を注文リストに追加
-    window.addToOrder = function(name, price, id, quantity, buttonElement) {
-        console.log("追加前の注文リスト:", window.currentOrder);
+ // 商品を注文リストに追加
+window.addToOrder = function(name, price, id, quantity, buttonElement) {
+    console.log("追加前の注文リスト:", window.currentOrder);
 
-        let existingItem = window.currentOrder.find((item) => item.id === id);
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            window.currentOrder.push({ id, name, price, quantity });
-        }
+    let existingItem = window.currentOrder.find((item) => item.id === id);
+    if (existingItem) {
+        existingItem.quantity += quantity;
+    } else {
+        window.currentOrder.push({ id, name, price, quantity });
+    }
 
-        console.log("追加後の注文リスト:", window.currentOrder);
-        
-        // ボタンのアニメーションを追加
-        if (buttonElement) {
-            buttonElement.classList.add("clicked");
+    console.log("追加後の注文リスト:", window.currentOrder);
 
-            setTimeout(() => {
-                buttonElement.classList.remove("clicked");
-            }, 300); // クリック後300msで元に戻す
-        }
+    // ボタンのアニメーションを追加
+    if (buttonElement) {
+        buttonElement.classList.add("clicked");
+        setTimeout(() => {
+            buttonElement.classList.remove("clicked");
+        }, 300);
+    }
 
-        // showOrderConfirmation(); ← これを削除して、追加ボタンを押してもカートが開かないようにする
-    };
+    // メッセージを表示
+    showOrderNotification();
+
+    // showOrderConfirmation(); ← これを削除して、追加ボタンを押してもカートが開かないようにする
+};
+
+// 注文確認に追加されたメッセージを表示する関数 (JSで作成)
+function showOrderNotification() {
+    let notification = document.getElementById("order-notification");
+
+    // 既に作成されていなければ作成
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.id = "order-notification";
+        notification.className = "order-notification";
+        document.body.appendChild(notification);
+    }
+
+    // メッセージを設定
+    notification.textContent = "注文確認に追加されました。";
+    
+    // 表示スタイル適用
+    notification.classList.add("show");
+
+    // 3秒後に非表示
+    setTimeout(() => {
+        notification.classList.remove("show");
+    }, 3000);
+}
+
 
     // 注文確認ボタンを押したときにカートの内容を表示
     window.toggleOrderConfirmation = function () {
@@ -116,8 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (sideMenu) sideMenu.style.right = "-100%";
         }
     };
-
-
     // 注文確認画面を表示（注文確認ボタンを押したときのみ実行）
     window.showOrderConfirmation = function () {
         let orderDetails = `<button class="close-button" onclick="toggleOrderConfirmation()">×</button>`;
