@@ -177,6 +177,11 @@ function showOrderNotification() {
 
         confirmationContainer.innerHTML = orderDetails;
     };
+    
+    window.removeItem = function(itemId) {
+        window.currentOrder = window.currentOrder.filter(item => item.id !== itemId);
+        showOrderConfirmation();
+    }
     // 注文の数量を更新（注文確認画面のみ影響）
     window.updateQuantity = function (id, change) {
         const itemIndex = window.currentOrder.findIndex(item => item.id === id);
