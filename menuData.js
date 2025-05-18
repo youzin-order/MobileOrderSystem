@@ -15,7 +15,7 @@ const menuData = {
 
   ],
   beer: [
-    { id: 1, name: "ビール", price: 500, image: "images/beer.jpg" },
+    { id: 1, name: "ビール", price: 500, image: "images/Beer.jpg" },
     { id: 2, name: "ウイスキー", price: 700, image: "images/whisky.jpg" }
   ],
   rice: [
